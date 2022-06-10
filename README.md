@@ -1,2 +1,2 @@
 # Karate_APi_Testing
-Karate tools for automate APi test
+Karate tool for automate APi test
