@@ -1,6 +1,8 @@
+#Not implemented we can only see the number of stars a product has
+
 Feature: add rating to a product
   Background:
-    * url base_url_dev
+    * url base_url
     * header Authorization = 'Bearer ' + authInfo.token
     * header content_type = 'application/json'
     * path '/rating/'

@@ -3,13 +3,15 @@ Feature: get all promotion
     * url base_url
     * header Authorization = 'Bearer ' + authInfo.token
 
-  @tagPr2
+  @OF-1242
   Scenario: test for get all promo
 
     Given path '/promotion/'
     When method Get
     And  print response
     Then status 200
+
+
 
 
 #  Method : GET

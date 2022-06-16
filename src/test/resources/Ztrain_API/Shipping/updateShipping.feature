@@ -6,19 +6,51 @@ Feature: update shipping method
     * header content_type = 'application/json'
 
 
-    @tagShip4
-  Scenario: update shipping method
+    @OF-1225
+  Scenario: update shipping method with valid shipping id
     * def designation = 'Livraison à domicile'
     * def description = 'la livraison ce fera à l'addresse fourni'
     * def shipping_id = '628b509a7765a3a1bf4cf618'
     #* def shipping_id = call read('classpath:Ztrain_API/Cart/createShipping.feature@TEST')
   #get shipping method id
 
-    Given path '/shipping-method/update/'+':'+shipping_id
-    And request {designation : '#(designation)', description:'#(description)', price:'#(cart[0].price)'}
+    Given path '/shipping-method/update/',shipping_id
+    And request {designation : '#(designation)', description:'#(description)', price: 0.5}
     When method PATCH
     Then status 200
+    And print
+
+
+  @OF-1226
+  Scenario: update shipping method with invalid shipping id
+    * def designation = 'Livraison à domicile'
+    * def description = 'la livraison ce fera à l'addresse fourni'
+    * def shipping_id = '123'
+    #* def shipping_id = call read('classpath:Ztrain_API/Cart/createShipping.feature@TEST')
+  #get shipping method id
+
+    Given path '/shipping-method/update/',shipping_id
+    And request {designation : '#(designation)', description:'#(description)', price: 0.5}
+    When method PATCH
+    Then status 500
     And print response
+
+
+  @OF-1227
+  Scenario: update shipping method with invalid body params
+    * def designation = ''
+    * def description = ''
+    * def shipping_id = '628b509a7765a3a1bf4cf618'
+    #* def shipping_id = call read('classpath:Ztrain_API/Cart/createShipping.feature@TEST')
+  #get shipping method id
+
+    Given path '/shipping-method/update/',shipping_id
+    And request {designation : '#(designation)', description:'#(description)', price:''}
+    When method PATCH
+    Then status 400
+    And print response
+
+
 
 
 

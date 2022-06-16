@@ -3,8 +3,8 @@ Feature: Update a specific promotion
     * url base_url
     * header Authorization = 'Bearer ' + authInfo.token
 
-  @tagPr4
-  Scenario: test for update a specific promotion
+  @OF-1240
+  Scenario: test for update a specific promotion with valid body params
     * def promo_id = '6283b33d0effaba5dd6a94fc'
     * def reduction = 10
     * def isActive = false
@@ -15,6 +15,34 @@ Feature: Update a specific promotion
     When method PATCH
     And  print response
     Then status 200
+
+
+  @OF-1239
+  Scenario: test for update a specific promotion with invalid body params
+    * def promo_id = '6283b33d0effaba5dd6a94fc'
+    * def reduction = ""
+    * def isActive = ""
+
+#* def promo_id = call read ('classpath:Ztrain_API/Promotion/createPromotion.feature@tags')
+    Given path '/promotion/update',promo_id
+    And request {reduction: '#(reduction)', isActive: '#(isActive)'}
+    When method PATCH
+    And  print response
+    Then status 400
+
+
+  @OF-1241
+  Scenario: test for update a specific promotion with invalid body params
+    * def promo_id = '123'
+    * def reduction = 10
+    * def isActive = true
+
+#* def promo_id = call read ('classpath:Ztrain_API/Promotion/createPromotion.feature@tags')
+    Given path '/promotion/update',promo_id
+    And request {reduction: '#(reduction)', isActive: '#(isActive)'}
+    When method PATCH
+    And  print response
+    Then status 500
 
 
 #  Method : PATCH

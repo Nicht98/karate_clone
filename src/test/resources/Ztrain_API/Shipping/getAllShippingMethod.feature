@@ -6,7 +6,7 @@ Feature: get all shipping method
     * header content_type = 'application/json'
 
 
-    @tagShip3
+    @OF-1224
   Scenario: get shipping methods
     #* def cart = call read('classpath:Ztrain_API/Cart/createShipping.feature@TEST')
   #assert if an add shipping method is available

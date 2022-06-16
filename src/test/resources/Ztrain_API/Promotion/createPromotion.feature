@@ -3,8 +3,8 @@ Feature: Create a promotion
     * url base_url
     * header Authorization = 'Bearer ' + authInfo.token
 
-  @tagPr1
-  Scenario: test for promo creation
+  @OF-1237
+  Scenario: test for promotion creation with valid params
 
     * def reduction = 10
     * def isActive = true
@@ -14,6 +14,24 @@ Feature: Create a promotion
     When method POST
     And  print response
     Then status 201
+
+    * def resp = response
+
+
+    @OF-1238
+  Scenario: test for promotion creation with invalid params
+
+    * def reduction = ""
+    * def isActive = ""
+
+    Given path '/promotion/create'
+    And request {reduction: '#(reduction)', isActive: '#(isActive)'}
+    When method POST
+    And  print response
+    Then status 400
+
+
+
 
 
 

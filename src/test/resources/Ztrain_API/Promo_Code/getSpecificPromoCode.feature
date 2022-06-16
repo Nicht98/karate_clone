@@ -5,11 +5,21 @@ Feature: get info on a specific promotion code for products
     * header Authorization = 'Bearer ' + authInfo.token
     * header content_type = 'application/json'
 
-  @tagPromo3
+  @OF-1235
   Scenario: test info for a specific promo code
     * def code = 'toto13'
     #* def code = call read('classpath:Ztrain_API/cart/createPromoCode.feature@Tag')
 
+    Given path 'promo-code',code
+    When method GET
+    Then status 200
+    And print response
+
+
+  @OF-1236
+  Scenario: test info for a non-existent promo code
+    * def code = 'toto'
+    #* def code = call read('classpath:Ztrain_API/cart/createPromoCode.feature@Tag')
     Given path 'promo-code',code
     When method GET
     Then status 200

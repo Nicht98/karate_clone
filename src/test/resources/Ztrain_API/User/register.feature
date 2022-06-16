@@ -1,7 +1,7 @@
 Feature: register user
 
   Background:
-    * url 'https://ztrain-shop.herokuapp.com'
+    * url base_url
     * path '/user/register'
     * def bodyRequest =
     """

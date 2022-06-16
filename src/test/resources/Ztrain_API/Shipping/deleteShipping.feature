@@ -6,17 +6,30 @@ Feature: delete shipping method
     * header content_type = 'application/json'
 
 
-    @tagShip2
+    @OF-1228
   Scenario: delete shipping methods
     * def shipping_id = '628b509a7765a3a1bf4cf618'
     #* def add_shipping = call read('classpath:Ztrain_API/Cart/createShipping.feature@TEST')
   #assert if an add shipping method is available
 
-    Given path '/shipping-method/',shipping_id
+    Given path '/shipping-method/delete',shipping_id
     When method DELETE
     Then status 200
     And print response
     And match response.message contains 'suppression réussi'
+
+  @OF-1229
+  Scenario: delete shipping methods that doesn't exist
+    * def shipping_id = '628b509a7'
+    #* def add_shipping = call read('classpath:Ztrain_API/Cart/createShipping.feature@TEST')
+  #assert if an add shipping method is available
+
+    Given path '/shipping-method/',shipping_id
+    When method DELETE
+    Then status 404
+    And print response
+    And match response.message contains 'cette methode de livraison n'existe pas'
+
 
 
 

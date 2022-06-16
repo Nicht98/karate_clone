@@ -6,8 +6,27 @@ Feature: Add product to wishlist
     * header content_type = 'application/json'
     * path '/favorites/add'
 
-    Scenario: test add product to favorite list
+    @OF-1218
+    Scenario: test add product to favorite list with valid params
       Given request {user : '#(authInfo.user)', product:'#(product)'}
       When method POST
       Then status 201
       And print response
+
+    @OF-1219
+    Scenario: test add product to favorite list with invalid body params
+      * def user_id = "1234"
+      * def product_id = "1234"
+      Given request {user : '#(user_id)', product:'#(product_id)'}
+      When method POST
+      Then status 400
+      And print response
+
+
+#Error print with invalid output ; For parsing purpose
+#    "statusCode": 400,
+#    "message": [
+#    "user should not be empty",
+#    "product should not be empty"
+#    ],
+#    "error": "Bad Request"

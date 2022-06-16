@@ -6,14 +6,55 @@ Feature: create promotion code for products
     * header content_type = 'application/json'
     * path '/promo-code/create'
 
-    @tagPromo1
-  Scenario: create a promo code
+    @OF-1230
+  Scenario: create a promo code with valid body params
     * def code = 'promo10'
     * def reduction = '10'
-    Given request {code : '#(code)', product:'#(reduction)'}
+    * def expired_date = 2023-10-29
+    Given request {code : '#(code)', product:'#(reduction)', expired_date: '#(expired_date)'}
     When method POST
     Then status 201
     And print response
+
+  * def resp = response
+
+
+  @OF-1231
+  Scenario: create a promo code with invalid body params
+    * def code = ''
+    * def reduction = ''
+    * def expired_date = ''
+    Given request {code : '#(code)', product:'#(reduction)', expired_date: '#(expired_date)'}
+    When method POST
+    Then status 400
+    And print response
+
+
+  @OF-1232
+  Scenario: create a promo code with a date in the past
+    * def code = ''
+    * def reduction = ''
+    * def expired_date = 2020-10-29
+    Given request {code : '#(code)', product:'#(reduction)', expired_date: '#(expired_date)'}
+    When method POST
+    Then status 403
+    And print response
+
+
+  @OF-1233
+  Scenario: create a promo code with the name of an existing promo-code
+    * def code = 'promo10'
+    * def reduction = '10'
+    * def expired_date = 2023-10-29
+    Given request {code : '#(code)', product:'#(reduction)', expired_date: '#(expired_date)'}
+    When method POST
+    Then status 500
+    And print response
+
+
+
+
+
 
 
 

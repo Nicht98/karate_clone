@@ -1,7 +1,7 @@
 Feature: Login user
 
   Background:
-    * url 'https://api-ztrain-dev.herokuapp.com'
+    * url base_url
     * path '/auth/login'
 
 
@@ -11,7 +11,7 @@ Feature: Login user
     When method POST
     And print response
     Then status 201
-
+    And print response
     * def resp = response
 
 

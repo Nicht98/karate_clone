@@ -1,7 +1,7 @@
 Feature: Create product
 
   Background:
-    * url 'https://api-ztrain-dev.herokuapp.com'
+    * url base_url
     * path '/product/create'
     * header Authorization = 'Bearer ' + authInfo.token
 
@@ -36,9 +36,12 @@ Feature: Create product
     {
       name: "#('Smartphone samsung galaxy S8+' +  Date.now())",
       description: "This is a description for the smartphone samsung galaxy S8+ worth more than hundred characters, Smartphone samsung galaxy S8+",
-      image: "https://image.jpeg",
+      image:["https://image.png", "https://image.png", "https://image.png"],
       price: 300,
-      category: '#(CatInfo.category)'
+      isActive: false,
+      category: '#(catInfo.category)',
+      promotion: '#(promo_code_id)',
+      attributs: {colors: ['green'],height: ['M', 'L'],}
     }
     """
     Given request bodyRq
@@ -48,3 +51,51 @@ Feature: Create product
 
 
 
+#  Method : POST
+#  URL : "https://ztrain-shop.herokuapp.com/product/create"
+#  Headers: {
+#  "Content-Type": "application/json",
+#  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZWZjNGIxNDVmOWIxZWY5YzZhMzZmMiIsImlhdCI6MTY0MzI3NDEzMCwiZXhwIjoxNjQzMzYwNTMwfQ.x5TxNZ-ffPhjy79Uwj7uVTuQkd-cffDZl7xqaY6xvRM"
+#  }
+#  Request : {
+#  "name": "Samsung Note 9jlsjsdqsdcaaabbb",
+#  "description": " Samsung Note 9 description, Samsung Note 9 description Samsung Note 9 description Samsung Note 9 description",
+#  "image":["https://image.png", "https://image.png", "https://image.png"],
+#  "price": 10,
+#  "isActive": false,
+#  "category": "625d70ef3f538325fe268e56",
+#  "promotion": "6283b33d0effaba5dd6a94fc",
+#  "attributs": {
+#  "colors": ["green"],
+#  "height": ["M", "L"]
+#  }
+#  }
+#  Reponse: status 201
+#  {
+#  "name": "Samsung Note 9jlsjsdqsdcaaabbb",
+#  "description": " Samsung Note 9 description, Samsung Note 9 description Samsung Note 9 description Samsung Note 9 description",
+#  "image": [
+#  "https://image.png",
+#  "https://image.png",
+#  "https://image.png"
+#  ],
+#  "price": 10,
+#  "comments": [],
+#  "isActive": false,
+#  "category": "625d70ef3f538325fe268e56",
+#  "promotion": "6283b33d0effaba5dd6a94fc",
+#  "attributs": {
+#  "colors": [
+#  "green"
+#  ],
+#  "height": [
+#  "M",
+#  "L"
+#  ],
+#  "_id": "628b65fca140eee8ddc868fd"
+#  },
+#  "createAt": "2022-05-23T10:24:09.063Z",
+#  "_id": "628b65fca140eee8ddc868fc",
+#  "__v": 0,
+#  "id": "628b65fca140eee8ddc868fc"
+#  }

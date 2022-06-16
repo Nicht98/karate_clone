@@ -1,6 +1,6 @@
 Feature: get product rate by the user
   Background:
-    * url base_url_dev
+    * url base_url
     * header Authorization = 'Bearer ' + authInfo.token
     * header content_type = 'application/json'
     * path '/rating/'

@@ -1,7 +1,7 @@
 Feature: Submit cart
 
   Background:
-    * url 'https://ztrain-shop.herokuapp.com'
+    * url base_url
     * path '/command/create'
     * def result = call read('classpath:Ztrain_API/Cart/addCart.feature@TEST_OF-728')
 

@@ -5,7 +5,7 @@ Feature: get all promotion code
     * header Authorization = 'Bearer ' + authInfo.token
     * header content_type = 'application/json'
 
-  @tagPromo2
+  @OF-1234
   Scenario: get all promo code
 
     Given path 'promo-code'

@@ -1,7 +1,7 @@
 Feature: Catégory product
 
   Background:
-    * url 'https://api-ztrain-dev.herokuapp.com'
+    * url base_url
     * path '/category/create'
     * header Authorization = 'Bearer ' + authInfo.token
 

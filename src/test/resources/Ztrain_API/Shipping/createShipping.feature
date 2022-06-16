@@ -6,8 +6,8 @@ Feature: create a shipping method
     * header content_type = 'application/json'
     * path '/shipping-method/create'
 
-    @tagShip1
-  Scenario: test add product to favorite list
+    @OF-1221
+  Scenario: test create a shipping method with valid params
     * def designation = 'Livraison à domicile'
     * def description = 'la livraison ce fera à l'addresse fourni'
     * def cart = call read('classpath:Ztrain_API/Cart/addCart.feature@TEST_OF-760')
@@ -17,6 +17,32 @@ Feature: create a shipping method
     When method POST
     Then status 201
     And print response
+
+
+  @OF-1222
+  Scenario: test create a shipping method with invalid params
+    * def designation = ''
+    * def description = ''
+    #add the corresponding APi for the price
+
+    Given request {designation : '#(designation)', description:'#(description)', price:''}
+    When method POST
+    Then status 400
+    And print response
+
+
+  @OF-1223
+  Scenario: test create a shipping method with the designation of an existing shipping method
+    * def designation = 'Livraison à domicile'
+    * def description = 'la livraison ce fera à l'addresse fourni'
+    * def cart = call read('classpath:Ztrain_API/Cart/addCart.feature@TEST_OF-760')
+    #add the corresponding APi for the price
+
+    Given request {designation : '#(designation)', description:'#(description)', price:'#(cart[0].price)'}
+    When method POST
+    Then status 403
+    And print response
+
 
 
 #  Method : POST
