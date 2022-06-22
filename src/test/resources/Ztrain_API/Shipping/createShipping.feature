@@ -5,15 +5,29 @@ Feature: create a shipping method
     * header Authorization = 'Bearer ' + authInfo.token
     * header content_type = 'application/json'
     * path '/shipping-method/create'
+    * def random_number =
+      """
+        function(max){return Math.floor(Math.random()*max)}
+      """
+
+    * def random_string =
+     """
+     function(s) {
+       var text = "";
+       var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+       for (var i = 0; i < s; i++)
+         text += possible.charAt(Math.floor(Math.random() * possible.length));
+       return text;
+     }
+     """
 
     @OF-1221
   Scenario: test create a shipping method with valid params
-    * def designation = 'Livraison à domicile'
-    * def description = 'la livraison ce fera à l'addresse fourni'
-    * def cart = call read('classpath:Ztrain_API/Cart/addCart.feature@TEST_OF-760')
-    #add the corresponding APi for the price
+     * def designation = "Livraison à domicile"+random_string(3)
+     * def description = "la livraison ce fera à l'addresse fourni"
 
-    Given request {designation : '#(designation)', description:'#(description)', price:'#(cart[0].price)'}
+
+    Given request {designation : '#(designation)', description:'#(description)', price:'#(random_number(100))'}*
     When method POST
     Then status 201
     And print response
@@ -23,7 +37,6 @@ Feature: create a shipping method
   Scenario: test create a shipping method with invalid params
     * def designation = ''
     * def description = ''
-    #add the corresponding APi for the price
 
     Given request {designation : '#(designation)', description:'#(description)', price:''}
     When method POST
@@ -33,15 +46,15 @@ Feature: create a shipping method
 
   @OF-1223
   Scenario: test create a shipping method with the designation of an existing shipping method
-    * def designation = 'Livraison à domicile'
-    * def description = 'la livraison ce fera à l'addresse fourni'
-    * def cart = call read('classpath:Ztrain_API/Cart/addCart.feature@TEST_OF-760')
-    #add the corresponding APi for the price
+    * def designation = "Livraison à domicile"
+    * def description = "la livraison ce fera à l'addresse fourni"
 
-    Given request {designation : '#(designation)', description:'#(description)', price:'#(cart[0].price)'}
+
+    Given request {designation : '#(designation)', description: '#(description)', price:'#(random_number(100))'}
     When method POST
     Then status 403
     And print response
+    And match response.error contains "Cette methode de livraison existe déja"
 
 
 

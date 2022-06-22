@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.List;
 
 import com.intuit.karate.Runner;
+import com.intuit.karate.junit5.Karate;
+import cucumber.api.CucumberOptions;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,18 +16,24 @@ import com.intuit.karate.Runner.Builder;
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 public class ParallelBuilderWithCucumberReport {
+
+
     @Test
     void testParallel() {
-        Results results = Runner.path("classpath:Ztrain_API/User/").tags("@testBooks").parallel(5);
+
+/*        Results results = Runner.path("classpath:Ztrain_API/User/").tags("@testBooks").parallel(5);
+       // Results results = Runner.path("classpath:Ztrain_API/User/").parallel(5);
         assertEquals(0, results.getFailCount(), results.getErrorMessages());
         generateCucumberReport(results.getReportDir());
-        generateReport(results.getReportDir());
+        generateReport(results.getReportDir());*/
     }
 
-    // reportDirLocation --> C:\Data\GitHub\KarateFrameworkTutorial\target\surefire-reports
+/*    // reportDirLocation --> C:\Data\GitHub\KarateFrameworkTutorial\target\surefire-reports
     private void generateCucumberReport(String reportDirLocation) {
 
         File reportDir = new File(reportDirLocation);
@@ -47,5 +55,5 @@ public class ParallelBuilderWithCucumberReport {
         Configuration config = new Configuration(new File("target"), "Ztrain_API");
         ReportBuilder reportBuilder = new ReportBuilder(jsonPaths, config);
         reportBuilder.generateReports();
-    }
+    }*/
 }

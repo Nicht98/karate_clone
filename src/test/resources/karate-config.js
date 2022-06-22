@@ -14,14 +14,14 @@ function fn() {
     promo_code_id: '62a7481d432e692df153f36e'
   }
 
-/*  var result = karate.callSingle('classpath:Ztrain_API/User/login.feature@TEST_OF-704', config);
+ var result = karate.callSingle('classpath:Ztrain_API/User/login.feature@TEST_OF-704', config);
   config.authInfo = { token: result.resp.token, user: result.resp.user._id , };
 
   var result = karate.callSingle('classpath:Ztrain_API/Product/Category.feature@TEST_OF-72', config);
-  config.CatInfo = { category: result.resp._id };*/
-
-/*  var result = karate.callSingle('classpath:Ztrain_API/Promotion/createPromotion.feature@tagCreatePromotion', config);
-  config.promoInfo = { promo_code: result.resp._id};*/
+      config.CatInfo = { category: result.resp._id };
+  /*
+   var result = karate.callSingle('classpath:Ztrain_API/Promotion/createPromotion.feature@OF-1237', config);
+    config.promoInfo = { promo_code: result.resp._id};*/
 
   return config;
 }

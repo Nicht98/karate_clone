@@ -1,5 +1,5 @@
 #Not implemented we can only see the number of stars a product has
-
+@ignore
 Feature: add rating to a product
   Background:
     * url base_url
@@ -9,7 +9,11 @@ Feature: add rating to a product
 
     @tagRate1
     Scenario: rate a product
-      * def note = 10
+      * def random_number =
+        """
+        function(max){ return Math.floor(Math.random() * max) }
+        """
+      * def note = random_number(5)
       Given request {user : '#(authInfo.user)', product: '#(product)', note : '#(note)'}
       When method POST
       Then status 201

@@ -8,15 +8,32 @@ Feature: create promotion code for products
 
     @OF-1230
   Scenario: create a promo code with valid body params
-    * def code = 'promo10'
-    * def reduction = '10'
-    * def expired_date = 2023-10-29
-    Given request {code : '#(code)', product:'#(reduction)', expired_date: '#(expired_date)'}
+    * def number =
+    """
+    function(max){ return Math.floor(Math.random() * max) }
+    """
+
+    * def random_string =
+     """
+     function(s) {
+       var text = "";
+       var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+       for (var i = 0; i < s; i++)
+         text += possible.charAt(Math.floor(Math.random() * possible.length));
+       return text;
+     }
+     """
+
+    * def random = number(99)
+    * def code =  random_string(4)+random
+    * def reduction = 10
+    * def expired_date = "2023-10-29"
+    Given request {code : '#(code)', reduction:'#(reduction)', expired_date: '#(expired_date)'}
     When method POST
     Then status 201
     And print response
 
-  * def resp = response
+    * def resp = response
 
 
   @OF-1231
@@ -24,7 +41,7 @@ Feature: create promotion code for products
     * def code = ''
     * def reduction = ''
     * def expired_date = ''
-    Given request {code : '#(code)', product:'#(reduction)', expired_date: '#(expired_date)'}
+    Given request {code : '#(code)', reduction:'#(reduction)', expired_date: '#(expired_date)'}
     When method POST
     Then status 400
     And print response
@@ -34,8 +51,15 @@ Feature: create promotion code for products
   Scenario: create a promo code with a date in the past
     * def code = ''
     * def reduction = ''
-    * def expired_date = 2020-10-29
-    Given request {code : '#(code)', product:'#(reduction)', expired_date: '#(expired_date)'}
+    * def expired_date = "2020-10-29"
+    Given request
+        """
+        {
+         "code": "polo98",
+         "reduction": 10,
+         "expired_date": '#(expired_date)'
+        }
+        """
     When method POST
     Then status 403
     And print response
@@ -43,13 +67,15 @@ Feature: create promotion code for products
 
   @OF-1233
   Scenario: create a promo code with the name of an existing promo-code
-    * def code = 'promo10'
-    * def reduction = '10'
-    * def expired_date = 2023-10-29
-    Given request {code : '#(code)', product:'#(reduction)', expired_date: '#(expired_date)'}
+    * def code = 'Toto20'
+    * def reduction = 10
+    * def expired_date = "2023-10-29"
+    Given request {code : '#(code)', reduction:'#(reduction)', expired_date: '#(expired_date)'}
     When method POST
     Then status 500
+    And match response.message contains "error"
     And print response
+
 
 
 

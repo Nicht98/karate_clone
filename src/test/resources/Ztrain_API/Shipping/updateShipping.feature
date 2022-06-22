@@ -4,30 +4,30 @@ Feature: update shipping method
     * url base_url
     * header Authorization = 'Bearer ' + authInfo.token
     * header content_type = 'application/json'
+    * def shipping_id = call read('classpath:Ztrain_API/Shipping/createShipping.feature@OF-1221')
 
 
     @OF-1225
   Scenario: update shipping method with valid shipping id
-    * def designation = 'Livraison à domicile'
-    * def description = 'la livraison ce fera à l'addresse fourni'
-    * def shipping_id = '628b509a7765a3a1bf4cf618'
-    #* def shipping_id = call read('classpath:Ztrain_API/Cart/createShipping.feature@TEST')
-  #get shipping method id
+    * def designation = "Livraison à domicile 237"
+    * def description = "la livraison ce fera à l'addresse fourni"
+    #* def shipping_id = '62b1af4e9e28289bf89c9195'
 
-    Given path '/shipping-method/update/',shipping_id
+
+    Given path '/shipping-method/update/',shipping_id.response._id
     And request {designation : '#(designation)', description:'#(description)', price: 0.5}
     When method PATCH
     Then status 200
-    And print
+    And print response
 
 
   @OF-1226
   Scenario: update shipping method with invalid shipping id
-    * def designation = 'Livraison à domicile'
-    * def description = 'la livraison ce fera à l'addresse fourni'
+    * def designation = "Livraison à domicile"
+    * def description = "la livraison ce fera à l'addresse fourni"
     * def shipping_id = '123'
     #* def shipping_id = call read('classpath:Ztrain_API/Cart/createShipping.feature@TEST')
-  #get shipping method id
+
 
     Given path '/shipping-method/update/',shipping_id
     And request {designation : '#(designation)', description:'#(description)', price: 0.5}
@@ -40,11 +40,11 @@ Feature: update shipping method
   Scenario: update shipping method with invalid body params
     * def designation = ''
     * def description = ''
-    * def shipping_id = '628b509a7765a3a1bf4cf618'
-    #* def shipping_id = call read('classpath:Ztrain_API/Cart/createShipping.feature@TEST')
-  #get shipping method id
+    #* def shipping_id = '628b509a7765a3a1bf4cf618'
 
-    Given path '/shipping-method/update/',shipping_id
+
+
+    Given path '/shipping-method/update/',shipping_id.response._id
     And request {designation : '#(designation)', description:'#(description)', price:''}
     When method PATCH
     Then status 400

@@ -5,12 +5,12 @@ Feature: Update a specific promotion
 
   @OF-1240
   Scenario: test for update a specific promotion with valid body params
-    * def promo_id = '6283b33d0effaba5dd6a94fc'
+    #* def promotion_id = '6283b33d0effaba5dd6a94fc'
     * def reduction = 10
     * def isActive = false
+    * def promo_id = call read('classpath:Ztrain_API/Promotion/createPromotion.feature@OF-1237')
 
-#* def promo_id = call read ('classpath:Ztrain_API/Promotion/createPromotion.feature@tags')
-    Given path '/promotion/update',promo_id
+    Given path '/promotion/update',promo_id.resp._id
     And request {reduction: '#(reduction)', isActive: '#(isActive)'}
     When method PATCH
     And  print response
@@ -19,12 +19,12 @@ Feature: Update a specific promotion
 
   @OF-1239
   Scenario: test for update a specific promotion with invalid body params
-    * def promo_id = '6283b33d0effaba5dd6a94fc'
+    #* def promotion_id = '6283b33d0effaba5dd6a94fc'
     * def reduction = ""
     * def isActive = ""
+    * def promo_id = call read('classpath:Ztrain_API/Promotion/createPromotion.feature@OF-1237')
 
-#* def promo_id = call read ('classpath:Ztrain_API/Promotion/createPromotion.feature@tags')
-    Given path '/promotion/update',promo_id
+    Given path '/promotion/update', promo_id.resp._id
     And request {reduction: '#(reduction)', isActive: '#(isActive)'}
     When method PATCH
     And  print response
@@ -32,12 +32,11 @@ Feature: Update a specific promotion
 
 
   @OF-1241
-  Scenario: test for update a specific promotion with invalid body params
+  Scenario: test for update a specific promotion with invalid promo_id
     * def promo_id = '123'
     * def reduction = 10
     * def isActive = true
 
-#* def promo_id = call read ('classpath:Ztrain_API/Promotion/createPromotion.feature@tags')
     Given path '/promotion/update',promo_id
     And request {reduction: '#(reduction)', isActive: '#(isActive)'}
     When method PATCH

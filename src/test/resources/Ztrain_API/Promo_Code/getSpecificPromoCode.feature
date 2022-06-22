@@ -7,22 +7,22 @@ Feature: get info on a specific promotion code for products
 
   @OF-1235
   Scenario: test info for a specific promo code
-    * def code = 'toto13'
-    #* def code = call read('classpath:Ztrain_API/cart/createPromoCode.feature@Tag')
+    #* def code = 'Toto20'
+    * def generate_code = call read('classpath:Ztrain_API/Promo_code/createPromoCode.feature@OF-1230')
+    * def code = generate_code.code
 
     Given path 'promo-code',code
     When method GET
     Then status 200
     And print response
 
-
   @OF-1236
   Scenario: test info for a non-existent promo code
     * def code = 'toto'
-    #* def code = call read('classpath:Ztrain_API/cart/createPromoCode.feature@Tag')
+
     Given path 'promo-code',code
     When method GET
-    Then status 200
+    Then status 500
     And print response
 
 

@@ -5,19 +5,19 @@ Feature: get a specific promotion
 
   @OF-1243
   Scenario: test for get information on a specific promotion
-    * def promo_id = '6283b33d0effaba5dd6a94fc'
-#* def promo_id = call read ('classpath:Ztrain_API/Promotion/createPromotion.feature@tags')
-    Given path '/promotion/',promo_id
-    When method Get
+    #* def promo_id = '6283b33d0effaba5dd6a94fc'
+    * def promo_generate = call read('classpath:Ztrain_API/Promotion/createPromotion.feature@OF-1237')
+
+    Given path '/promotion/',promo_generate.resp._id
+    When method GET
     And  print response
     Then status 200
 
   @OF-1244
   Scenario: test for get information on a non-existent specific promotion
     * def promo_id = '123'
-#* def promo_id = call read ('classpath:Ztrain_API/Promotion/createPromotion.feature@tags')
     Given path '/promotion/',promo_id
-    When method Get
+    When method GET
     And  print response
     Then status 500
 

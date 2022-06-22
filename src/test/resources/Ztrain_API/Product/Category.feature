@@ -1,4 +1,4 @@
-Feature: Catégory product
+Feature: Category product
 
   Background:
     * url base_url

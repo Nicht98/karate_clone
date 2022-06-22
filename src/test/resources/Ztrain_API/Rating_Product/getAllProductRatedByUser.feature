@@ -1,3 +1,5 @@
+#Not implemented
+@ignore
 Feature: get product rate by the user
   Background:
     * url base_url

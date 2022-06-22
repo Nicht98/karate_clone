@@ -19,7 +19,7 @@ Feature: Add product to wishlist
       * def product_id = "1234"
       Given request {user : '#(user_id)', product:'#(product_id)'}
       When method POST
-      Then status 400
+      Then status 500
       And print response
 
 

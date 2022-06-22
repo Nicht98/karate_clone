@@ -6,7 +6,7 @@ Feature: Submit cart
     * def result = call read('classpath:Ztrain_API/Cart/addCart.feature@TEST_OF-728')
 
   @TEST_OF-734
-  Scenario Outline: Test the submit command api call with invalid parameters
+  Scenario Outline: Test the submit command api call with valid and invalid parameters
     * def BodyRq =
     """
     {
@@ -17,7 +17,8 @@ Feature: Submit cart
         "exp_month": "<exp_month>",
         "exp_year": "<exp_year>",
         "cvc": <cvc>,
-      }
+      },
+      "shipping_method": "627ce1b06ba58352b9229552"
     }
     """
     Given header Authorization = 'Bearer ' + <token>
