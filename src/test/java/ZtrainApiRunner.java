@@ -1,6 +1,5 @@
 import com.intuit.karate.junit5.Karate;
 
-
 public class ZtrainApiRunner {
 
     @Karate.Test
@@ -20,3 +19,5 @@ public class ZtrainApiRunner {
         return Karate.run().relativeTo(getClass());
     }
 }
+
+

@@ -10,12 +10,23 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <maven.compiler.version>3.8.1</maven.compiler.version>
-        <maven.surefire.version>2.22.2</maven.surefire.version>
-        <karate.version>1.1.0</karate.version>
+        <maven.compiler.version>3.6.0</maven.compiler.version>
+        <karate.version>0.9.5</karate.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-apache</artifactId>
+            <version>${karate.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-junit4</artifactId>
+            <version>${karate.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>com.intuit.karate</groupId>
             <artifactId>karate-junit5</artifactId>
@@ -23,32 +34,29 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.intuit.karate</groupId>
-            <artifactId>karate-junit5</artifactId>
-            <version>1.1.0</version>
-            <scope>compile</scope>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.4.0</version>
+            <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>net.masterthought</groupId>
             <artifactId>cucumber-reporting</artifactId>
-            <version>3.8.0</version>
+            <version>4.9.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+    <!--    <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-gatling</artifactId>
+            <version>${karate.version}</version>
             <scope>test</scope>
-        </dependency>
-
-
+        </dependency>-->
     </dependencies>
 
     <build>
         <testResources>
             <testResource>
-                <directory>src/test/resources</directory>
+                <directory>src/test/java</directory>
                 <excludes>
                     <exclude>**/*.java</exclude>
                 </excludes>
@@ -69,11 +77,28 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.version}</version>
-                <configuration>
-                    <argLine>-Dfile.encoding=UTF-8</argLine>
-                </configuration>
+                <version>2.22.2</version>
             </plugin>
+           <!-- <plugin>
+                <groupId>io.gatling</groupId>
+                <artifactId>gatling-maven-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <simulationsFolder>src/test/java</simulationsFolder>
+                    <includes>
+                        <include>examples.performance.UserSimulation</include>
+                    </includes>
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
         </plugins>
     </build>
 
