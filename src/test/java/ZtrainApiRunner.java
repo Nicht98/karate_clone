@@ -12,7 +12,7 @@ public class ZtrainApiRunner {
     @Karate.Test
     Karate testTags() {
         System.setProperty("karate.env", "auto");
-        return Karate.run().tags("@TEST_OF-728").relativeTo(getClass());
+        return Karate.run().tags("@TEST").relativeTo(getClass());
     }
 
     @Karate.Test

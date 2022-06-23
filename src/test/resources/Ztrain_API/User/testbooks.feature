@@ -1,6 +1,6 @@
 Feature: get product rate by the user
   Background:
-    * url 'https://simple-books-api.glitch.me'
+    * url base_url
     * header content_type = 'application/json'
     #* path '/books/'
 
